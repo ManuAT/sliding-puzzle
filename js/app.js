@@ -48,6 +48,9 @@ function arrayToMatrix(imgArray){
   }
   return numberMatrix;
 }
+function checkFreePosition(pos, matrix){
+  return ((matrix[pos[0]][pos[1]]) == null);
+}
 function getElementPosition(element, matrix){
   for (var i=0; i<matrix.length;i++){
     for(var j=0; j<matrix.length;j++){
@@ -58,7 +61,7 @@ function getElementPosition(element, matrix){
   }
   return false;
 }
-function checkPosition(move, element, matrix){
+function checkValidPosition(move, element, matrix){
   var position = getElementPosition(element, matrix);
   if (!position){
     return false;
@@ -67,35 +70,47 @@ function checkPosition(move, element, matrix){
     case 'destra':
       var j = position[1] + 1;
       if (j < 3){
-        return true;
+        var newPosition = position;
+        newPosition[1] = j;
+        return checkFreePosition(newPosition, matrix);
+      }else{
+        return false;
       }
-      return false;
       break;
     case 'sinistra':
       var j = position[1] - 1;
       if (j >= 0){
-        return true;
+        var newPosition = position;
+        newPosition[1] = j;
+        return checkFreePosition(newPosition, matrix);
+      }else{
+        return false;
       }
-      return false;
       break;
     case 'alto':
       var i = position[0] - 1;
       if (i >= 0){
-        return true;
+        var newPosition = position;
+        newPosition[0] = i;
+        return checkFreePosition(newPosition, matrix);
+      }else{
+        return false;
       }
-      return false;
       break;
     case 'basso':
       var i = position[0] + 1;
       if (i < 3){
-        return true;
+        var newPosition = position;
+        newPosition[0] = i;
+        return checkFreePosition(newPosition, matrix);
+      }else{
+        return false;
       }
-      return false;
       break;
     default:
-      return false;
   }
 }
+
 function init(){
   // fill imgArray with images
   var imgArray = new Array();
@@ -106,11 +121,17 @@ function init(){
   imgArray = shuffle(imgArray);
   // remove 9th element
   imgArray = removeNine(imgArray);
-  console.log(imgArray);
   // add image to DOM
   addImages(imgArray);
+  // convert array to 2d array
   var matrix = arrayToMatrix(imgArray);
   console.log(matrix);
-  var position = checkPosition('basso', 5, matrix);
-  console.log(position);
+  // check if next position is possible
+  var validPosition = checkValidPosition('basso', 5, matrix);
+  console.log(validPosition);
+  if (validPosition){
+
+  }else{
+    return false;
+  }
 }
