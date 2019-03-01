@@ -16,5 +16,10 @@ body, h1, h2, h3, h4, h5, h6, p, a, span{
   background-color: #1E1D24;
 }
 .style-game-section{
-  
+  max-width:300px;
+}
+.style-game-number{
+  max-width:80px;
+  display:inline-block;
+  width:30%;
 }
