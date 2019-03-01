@@ -48,8 +48,17 @@ function arrayToMatrix(imgArray){
   }
   return numberMatrix;
 }
-function checkFreePosition(pos, matrix){
-  return ((matrix[pos[0]][pos[1]]) == null);
+function move(element, oldPosition, newPosition, matrix){
+  matrix[oldPosition[0]][oldPosition[1]] = null;
+  matrix[newPosition[0]][newPosition[1]] = element;
+  return true;
+}
+function checkFreePosition(newPosition, matrix, element, oldPosition){
+  if((matrix[newPosition[0]][newPosition[1]]) == null){
+    return move(element, oldPosition, newPosition, matrix);
+  }else{
+    return false;
+  }
 }
 function getElementPosition(element, matrix){
   for (var i=0; i<matrix.length;i++){
@@ -72,7 +81,7 @@ function checkValidPosition(move, element, matrix){
       if (j < 3){
         var newPosition = position;
         newPosition[1] = j;
-        return checkFreePosition(newPosition, matrix);
+        return checkFreePosition(newPosition, matrix, element, position);
       }else{
         return false;
       }
@@ -82,7 +91,7 @@ function checkValidPosition(move, element, matrix){
       if (j >= 0){
         var newPosition = position;
         newPosition[1] = j;
-        return checkFreePosition(newPosition, matrix);
+        return checkFreePosition(newPosition, matrix, element, position);
       }else{
         return false;
       }
@@ -92,7 +101,7 @@ function checkValidPosition(move, element, matrix){
       if (i >= 0){
         var newPosition = position;
         newPosition[0] = i;
-        return checkFreePosition(newPosition, matrix);
+        return checkFreePosition(newPosition, matrix, element, position);
       }else{
         return false;
       }
@@ -102,7 +111,7 @@ function checkValidPosition(move, element, matrix){
       if (i < 3){
         var newPosition = position;
         newPosition[0] = i;
-        return checkFreePosition(newPosition, matrix);
+        return checkFreePosition(newPosition, matrix, element, position);
       }else{
         return false;
       }
@@ -110,7 +119,21 @@ function checkValidPosition(move, element, matrix){
     default:
   }
 }
-
+function isSorted(matrix){
+  // matrix to array
+  var newArray = new Array();
+  for(var i = 0; i < matrix.length; i++){
+    newArray = newArray.concat(matrix[i]);
+  }
+  var sorted = true;
+  for (var i = 0; i < newArray.length - 1; i++) {
+    if (newArray[i] > newArray[i+1]) {
+        sorted = false;
+        return false;
+    }
+  }
+  return true;
+}
 function init(){
   // fill imgArray with images
   var imgArray = new Array();
@@ -126,11 +149,14 @@ function init(){
   // convert array to 2d array
   var matrix = arrayToMatrix(imgArray);
   console.log(matrix);
+
   // check if next position is possible
   var validPosition = checkValidPosition('basso', 5, matrix);
-  console.log(validPosition);
+  //console.log(validPosition);
   if (validPosition){
-
+    if(isSorted(matrix)){
+      alert('HAI VINTO');
+    }
   }else{
     return false;
   }
