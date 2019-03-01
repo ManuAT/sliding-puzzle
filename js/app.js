@@ -1,3 +1,4 @@
+var _matrix=null;
 function shuffle(imgArray) {
     var j, x, i;
     for (i = imgArray.length - 1; i > 0; i--) {
@@ -29,6 +30,7 @@ function addImages(imgArray){
       img.attr('src', 'img/' + imgArray[j] + '.png');
       img.attr('class', 'style-game-number');
       img.attr('draggable', 'false');
+      img.attr('onclick', 'clickEvent(this.id)');
       img.appendTo('#game');
     }
   }
@@ -49,8 +51,22 @@ function arrayToMatrix(imgArray){
   return numberMatrix;
 }
 function move(element, oldPosition, newPosition, matrix){
+  console.log("new " + newPosition);
+  console.log("old " + oldPosition);
+  // move old position with new position
   matrix[oldPosition[0]][oldPosition[1]] = null;
-  matrix[newPosition[0]][newPosition[1]] = element;
+  matrix[newPosition[0]][newPosition[1]] = parseInt(element);
+  // remove game element child
+  var myNode = document.getElementById("game");
+  while (myNode.firstChild) {
+      myNode.removeChild(myNode.firstChild);
+  }
+  // matrix to array
+  var newArray = new Array();
+  for(var i = 0; i < matrix.length; i++){
+    newArray = newArray.concat(matrix[i]);
+  }
+  addImages(newArray);
   return true;
 }
 function checkFreePosition(newPosition, matrix, element, oldPosition){
@@ -75,13 +91,14 @@ function checkValidPosition(move, element, matrix){
   if (!position){
     return false;
   }
+  var oldPosition = getElementPosition(element, matrix);
   switch (move) {
     case 'destra':
       var j = position[1] + 1;
       if (j < 3){
         var newPosition = position;
         newPosition[1] = j;
-        return checkFreePosition(newPosition, matrix, element, position);
+        return checkFreePosition(newPosition, matrix, element, oldPosition);
       }else{
         return false;
       }
@@ -91,7 +108,7 @@ function checkValidPosition(move, element, matrix){
       if (j >= 0){
         var newPosition = position;
         newPosition[1] = j;
-        return checkFreePosition(newPosition, matrix, element, position);
+        return checkFreePosition(newPosition, matrix, element, oldPosition);
       }else{
         return false;
       }
@@ -101,7 +118,7 @@ function checkValidPosition(move, element, matrix){
       if (i >= 0){
         var newPosition = position;
         newPosition[0] = i;
-        return checkFreePosition(newPosition, matrix, element, position);
+        return checkFreePosition(newPosition, matrix, element, oldPosition);
       }else{
         return false;
       }
@@ -111,7 +128,7 @@ function checkValidPosition(move, element, matrix){
       if (i < 3){
         var newPosition = position;
         newPosition[0] = i;
-        return checkFreePosition(newPosition, matrix, element, position);
+        return checkFreePosition(newPosition, matrix, element, oldPosition);
       }else{
         return false;
       }
@@ -134,6 +151,22 @@ function isSorted(matrix){
   }
   return true;
 }
+function clickEvent(id){
+  console.log(id);
+  var mosse = ['alto', 'basso', 'sinistra', 'destra'];
+  for (var i=0; i < mosse.length;i++){
+    // check if next position is possible
+    var validPosition = checkValidPosition(mosse[i], id, _matrix);
+    console.log(mosse[i] + " " + validPosition);
+    console.log(_matrix);
+    if (validPosition){
+      if(isSorted(_matrix)){
+        alert('HAI VINTO');
+      }
+    }
+  }
+  return false;
+}
 function init(){
   // fill imgArray with images
   var imgArray = new Array();
@@ -148,16 +181,6 @@ function init(){
   addImages(imgArray);
   // convert array to 2d array
   var matrix = arrayToMatrix(imgArray);
+  this._matrix = matrix;
   console.log(matrix);
-
-  // check if next position is possible
-  var validPosition = checkValidPosition('basso', 5, matrix);
-  //console.log(validPosition);
-  if (validPosition){
-    if(isSorted(matrix)){
-      alert('HAI VINTO');
-    }
-  }else{
-    return false;
-  }
 }

@@ -24,12 +24,6 @@ body, h1, h2, h3, h4, h5, h6, p, a, span{
   max-width:100px!important;
   display:inline-block!important;
   width:30%!important;
-  pointer-events: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
-  user-select: none;
 }
 .style-game-wrapper{
   display:flex;
