@@ -143,7 +143,7 @@ function isSorted(matrix){
     newArray = newArray.concat(matrix[i]);
   }
   var sorted = true;
-  for (var i = 0; i < newArray.length - 1; i++) {
+  for (var i = 0; i < newArray.length - 2; i++) {
     if (newArray[i] > newArray[i+1]) {
         sorted = false;
         return false;
@@ -161,7 +161,7 @@ function clickEvent(id){
     //console.log(_matrix);
     if (validPosition){
       if(isSorted(_matrix)){
-        alert('HAI VINTO');
+        flatAlert('HAI VINTO', '', 'success', '');
       }
       break;
     }
@@ -184,4 +184,17 @@ function init(){
   var matrix = arrayToMatrix(imgArray);
   this._matrix = matrix;
   console.log(matrix);
+}
+function flatAlert(titolo, testo, icona, url){
+  swal({
+    title: titolo,
+    text: testo,
+    icon: icona,
+  }).then(azione => {
+    if (azione){
+      location.href = url;
+    }else{
+      location.href = url;
+    }
+  });
 }
