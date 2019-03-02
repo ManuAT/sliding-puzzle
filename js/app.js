@@ -163,6 +163,7 @@ function clickEvent(id){
       if(isSorted(_matrix)){
         alert('HAI VINTO');
       }
+      break;
     }
   }
   return false;
