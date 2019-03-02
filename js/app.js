@@ -149,16 +149,16 @@ function isSorted(matrix){
         return false;
     }
   }
+  console.log(newArray);
   return true;
 }
 function clickEvent(id){
-  console.log(id);
   var mosse = ['alto', 'basso', 'sinistra', 'destra'];
   for (var i=0; i < mosse.length;i++){
     // check if next position is possible
     var validPosition = checkValidPosition(mosse[i], id, _matrix);
-    console.log(mosse[i] + " " + validPosition);
-    console.log(_matrix);
+    //console.log(mosse[i] + " " + validPosition);
+    //console.log(_matrix);
     if (validPosition){
       if(isSorted(_matrix)){
         alert('HAI VINTO');
