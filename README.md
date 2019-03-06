@@ -7,3 +7,5 @@ Sliding flat design puzzle game written in pure javascript...
 
 * Improve and make the game faster
 * Add animations
+* 4x4
+* time

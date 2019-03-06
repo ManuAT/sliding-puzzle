@@ -1,4 +1,5 @@
 var _matrix=null;
+var mosse = 0;
 function shuffle(imgArray) {
     var j, x, i;
     for (i = imgArray.length - 1; i > 0; i--) {
@@ -160,6 +161,8 @@ function clickEvent(id){
     //console.log(mosse[i] + " " + validPosition);
     //console.log(_matrix);
     if (validPosition){
+      this.mosse++;
+      document.getElementById('mosse').innerHTML = this.mosse;
       if(isSorted(_matrix)){
         flatAlert('HAI VINTO', '', 'success', '');
       }
