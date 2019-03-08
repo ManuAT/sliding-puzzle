@@ -172,6 +172,7 @@ function clickEvent(id){
   return false;
 }
 function init(){
+  jQuery('#game').empty();
   // fill imgArray with images
   var imgArray = new Array();
   for (var i=0; i < 9;i++){

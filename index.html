@@ -16,12 +16,12 @@
     <script src="slidingPuzzle.js"></script>
     <title>Sliding Puzzle</title>
   </head>
-  <body class="style-game-bg">
+  <body id="body" class="style-game-bg">
     <nav style="text-align:center;height:40px;margin-top:40px">
       <h1 style="color:white;font-size:3em">SLIDING PUZZLE</h1>
       <!--<h4 style="color:white">Developed with <i class="material-icons">free_breakfast</i> by <a href="https://asdf1899.github.io" style="color:white">Anas Araid</a></h4> -->
       <br>
-      <button class="style-game-button" onclick="location.reload()">NUOVA PARTITA</button>
+      <button class="style-game-button" onclick="init()">NUOVA PARTITA</button>
       <div style="text-align:center;">
         <h3 style="color:white;display:inline-block">Mosse:</h3>
         <h3 id="mosse" style="color:white;display:inline-block"></h3>
@@ -31,8 +31,5 @@
       <div id="game" class="style-game-section">
       </div>
     </div>
-    <script>
-      init();
-    </script>
   </body>
 </html>
