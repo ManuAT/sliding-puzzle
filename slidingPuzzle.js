@@ -1,5 +1,6 @@
 var _matrix=null;
 var mosse = 0;
+var timer;
 function shuffle(imgArray) {
     var j, x, i;
     for (i = imgArray.length - 1; i > 0; i--) {
@@ -164,7 +165,8 @@ function clickEvent(id){
       this.mosse++;
       document.getElementById('mosse').innerHTML = this.mosse;
       if(isSorted(_matrix)){
-        flatAlert('HAI VINTO', '', 'success', '');
+        this.timer.pause();
+        flatAlert('HAI VINTO', 'Mosse: ' + this.mosse + "\n" + " Tempo: " + timer.getTimeValues().toString(['hours', 'minutes', 'seconds', 'secondTenths']), 'success', '');
       }
       break;
     }
@@ -177,7 +179,7 @@ function init(){
   // svuota il div
   jQuery('#game').empty();
   // add timer
-  var timer = new easytimer.Timer();
+  this.timer = new easytimer.Timer();
   timer.start({precision: 'secondTenths'});
   timer.addEventListener('secondTenthsUpdated', function (e) {
       jQuery('#timer .values').html(timer.getTimeValues().toString(['hours', 'minutes', 'seconds', 'secondTenths']));
