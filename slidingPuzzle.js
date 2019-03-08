@@ -172,7 +172,16 @@ function clickEvent(id){
   return false;
 }
 function init(){
+  this.mosse = 0;
+  document.getElementById('mosse').innerHTML = this.mosse;
+  // svuota il div
   jQuery('#game').empty();
+  // add timer
+  var timer = new easytimer.Timer();
+  timer.start({precision: 'secondTenths'});
+  timer.addEventListener('secondTenthsUpdated', function (e) {
+      jQuery('#timer .values').html(timer.getTimeValues().toString(['hours', 'minutes', 'seconds', 'secondTenths']));
+  });
   // fill imgArray with images
   var imgArray = new Array();
   for (var i=0; i < 9;i++){
