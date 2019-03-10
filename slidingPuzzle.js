@@ -174,6 +174,7 @@ function clickEvent(id){
   return false;
 }
 function init(){
+  jQuery('#github').remove();
   this.mosse = 0;
   document.getElementById('mosse').innerHTML = this.mosse;
   // svuota il div
