@@ -174,6 +174,8 @@ function clickEvent(id){
   return false;
 }
 function init(){
+  jQuery('#btn-new').hide();
+  jQuery('#btn-back').show();
   jQuery('#github').remove();
   this.mosse = 0;
   document.getElementById('mosse').innerHTML = this.mosse;
